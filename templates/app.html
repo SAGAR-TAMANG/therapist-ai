@@ -161,7 +161,10 @@
       console.log('Message:', message);
       document.getElementById('chat_input').value = message;
       document.getElementById('button-addon1').click();
+    });
 
+    input = document.getElementById('button-addon1')
+    input.addEventListener('click', function() {
       document.getElementById('options').style.display = 'none';
     });
   });
