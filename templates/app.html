@@ -126,7 +126,12 @@
 
 <script>
   document.body.addEventListener('htmx:wsAfterSend', function(evt) {
-    document.getElementById('chat_input').value = ''
+    document.getElementById('chat_input').value = '';
+    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
   });
+  
+  document.body.addEventListener('htmx:wsAfterMessage', function(evt) {
+    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+  })
 </script>
 {% endblock %}

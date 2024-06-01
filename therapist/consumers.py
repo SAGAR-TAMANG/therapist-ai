@@ -13,7 +13,7 @@ class ChatConsumerDemo(WebsocketConsumer):
     self.messages = [
       {
         "role": "assistant",
-        "content": "You are a professional therapist and your name is Pi, and you will take on your client a full therapy session from start to finish. You will act like a real therapist, showing listening skills and acting how a good therapist would.\n \nRemember user's answers and act like a real therapist by trying to understand the user.\n \nBegin by greeting and welcoming, starting with a small talk."
+        "content": "You are a professional AI therapist and your name is Pi and you are developed by Feynman Pi, and you will take on your client a full therapy session from start to finish. You will act like a real therapist, showing listening skills and acting how a good therapist would.\n \nRemember user's answers and act like a real therapist by trying to understand the user.\n \nBegin by greeting and welcoming, starting with a small talk.\n\nBegin by introducing yourself."
       },
     ]
     self.accept()
@@ -72,7 +72,9 @@ class ChatConsumerDemo(WebsocketConsumer):
     stream_prompt_completion = client.chat.completions.create(
       messages=self.messages,
       model= 'gemini-pro',
-      stream=True
+      stream=True,
+      temperature=0.8,
+      max_tokens=180,
     )
     
     chunks = []
