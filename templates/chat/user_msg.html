@@ -1,0 +1,14 @@
+{% load static %}
+
+<div id="message-list" hx-swap-oob="beforeend">
+  <div class="py-4 px-3 border-bottom d-flex align-items-top">
+    <img src="{% static 'img/default-profile.jpg' %}" style="width: 30px; height: 30px;" class="me-3" alt="user-avatar">
+    <p class="text-secondary p-0 m-0">
+      <span class="fw-bold">
+        you
+      </span>
+      <br>
+      {{ message_text }}
+    </p>
+  </div>
+</div>

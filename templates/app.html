@@ -1,13 +1,134 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block style %}
+<style>
+  #chat {
+  }
+  body {
+    height: 100vh;
+  }
+  .chat-width {
+    width: 100%;
+  }
+  .text-decoration-none{
+    text-decoration: none;
+  }
+  .card:hover {
+    background-color: #f8f9fa;
+  }
+  .form-control:focus {
+    outline: none;
+    box-shadow: none; /* Optionally remove box-shadow as well */
+    border-color: #ced4da;
+  }
+  .fs-7 {
+    font-size: 0.875rem;
+  }
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #form_div {
+    margin: auto;
+    width: 100%;
+  }
+  .navbar-toggler:focus {
+    --bs-navbar-toggler-focus-width: 0;
+  }
+  #loading1 {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #loading2 {
+  }
+  @media (max-width: 572px) {
+    #card-1 {
+      display: none;
+    }
+    #card-2 {
+      display: none;
+    }
+  }
+  @media (min-width: 992px) {
+    .chat-width {
+      width: 50%;
+    }
+    #form_div {
+      width: auto;
+    }
+  }
+</style>
+{% endblock %}
 {% block content %}
 
 <main>
   <!-- app -->
   <section class="app">
-    
+    <div>
+      <div class="d-flex justify-content-center mt-3" id="message_block2" hx-ext="ws" ws-connect="/ws/ai-demo/">
+        <div class="chat-width" style="padding-bottom:6rem" id="message-list">
+          <div class="py-4 px-3 border-bottom d-flex align-items-top">
+            <img src="{% static 'img/pi.jpg' %}" style="width: 30px; height: 30px;" class="me-3" alt="user-avatar">
+            <p class="text-secondary p-0 m-0">
+              <span class="fw-bold">
+                pi
+              </span>
+              <br>
+              chat.message|linebreaksbr|bold|safe
+            </p>
+          </div>
+          <div class="py-4 px-3 border-bottom d-flex align-items-top">
+            <img src="{% static 'img/default-profile.jpg' %}" style="width: 30px; height: 30px;" class="me-3" alt="user-avatar">
+            <p class="text-secondary p-0 m-0">
+              <span class="fw-bold">
+                you
+              </span>
+              <br>
+              chat.message|linebreaksbr
+            </p>
+          </div>
+        </div>
+        <div class="position-fixed chat-width bottom-0">
+          <div class="m-3 m-sm-5 mb-sm-2">
+            <div class="loading2 htmx-indicator d-flex justify-content-center" id="loading2">
+              <img src="{% static 'img/loading2.gif' %}" alt="" height="40px">
+            </div>
+            <form class="border border-dark border-2" ws-send>
+              {% csrf_token %}
+              <div class="input-group w-auto">
+                <input
+                type="text"
+                name="message"
+                class="form-control p-3"
+                placeholder="Send a message"
+                aria-label="Send a message"
+                aria-describedby="button-addon1"
+                id="chat_input"
+                />
+                <button class="btn btn-primary" type="submit" id="button-addon1">
+                  <i class="fa-solid fa-circle-arrow-up fa-xl text-white"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </main>
 
+{% endblock %}
+
+{% block javascript %}
+<script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
+
+<script>
+  document.body.addEventListener('htmx:wsAfterSend', function(evt) {
+    document.getElementById('chat_input').value = ''
+  });
+</script>
 {% endblock %}

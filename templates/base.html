@@ -19,8 +19,9 @@
   {% include 'includes/navbar.html' %}
   {% block content %}
   {% endblock %}
+  <script src="{% static 'js/htmx.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
   {% block javascript %}
   {% endblock %}
-  <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 </body>
 </html>
