@@ -1,1 +1,1 @@
-web: daphne -p $PORT main.asgi:application
+web: daphne main.asgi
