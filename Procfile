@@ -1,1 +1,1 @@
-web: gunicorn main.asgi --log-file=- 
+web: daphne -p $PORT main.asgi:application
