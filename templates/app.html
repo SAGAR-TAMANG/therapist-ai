@@ -23,7 +23,7 @@
     border-color: #ced4da;
   }
   .fs-7 {
-    font-size: 0.875rem;
+    font-size: 0.800rem;
   }
   .truncate {
     overflow: hidden;
@@ -51,6 +51,9 @@
     }
     #card-2 {
       display: none;
+    }
+    .fs-7 {
+      font-size: 0.590rem;
     }
   }
   @media (min-width: 992px) {
@@ -90,11 +93,20 @@
       <div class="d-flex justify-content-center mt-3" id="message_block2" hx-ext="ws" ws-connect="/ws/ai-demo/">
         <div class="chat-width" style="padding-bottom:6rem" id="message-list">
         </div>
-        <div class="position-fixed chat-width bottom-0">
-          <div class="m-3 m-sm-5 mb-sm-2">
-            <div class="loading2 htmx-indicator d-flex justify-content-center" id="loading2">
-              <img src="{% static 'img/loading2.gif' %}" alt="" height="40px">
+          <div class="position-fixed chat-width bottom-0 px-2">
+            <div class="row px-2" id="options">
+              {% for cards_bold, cards_normal in zipped %}
+              <div class="col-12 col-sm-6 p-1" id="card-{{ forloop.counter }}">
+                <a href="#" class="text-decoration-none">
+                  <div class="card p-3 card-link" data-bold="{{ cards_bold }}" data-normal="{{ cards_normal }}">
+                    <h1 class="fs-7">{{ cards_bold }}</h1>
+                    <p class="fs-7 m-0 truncate">{{ cards_normal }}</p>
+                  </div>
+                </a>
+              </div>
+              {% endfor %}
             </div>
+
             <form class="border border-dark border-2" ws-send>
               {% csrf_token %}
               <div class="input-group w-auto">
@@ -112,6 +124,9 @@
                 </button>
               </div>
             </form>
+            <div class="text-secondary fs-7 text-center mt-2">
+              Pi is only an AI agent, consult a professional for medical advice.
+            </div>
           </div>
         </div>
       </div>
@@ -133,5 +148,22 @@
   document.body.addEventListener('htmx:wsAfterMessage', function(evt) {
     window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
   })
+
+  var cardLinks = document.querySelectorAll('.card-link');
+    
+  cardLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      var boldText = link.dataset.bold;
+      var normalText = link.dataset.normal;
+      var message = boldText + " " + normalText;
+
+      console.log('Message:', message);
+      document.getElementById('chat_input').value = message;
+      document.getElementById('button-addon1').click();
+
+      document.getElementById('options').style.display = 'none';
+    });
+  });
 </script>
 {% endblock %}

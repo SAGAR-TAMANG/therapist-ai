@@ -1,13 +1,47 @@
 from django.shortcuts import render, HttpResponse
 from dotenv import load_dotenv
-import os
+import os, random
 load_dotenv()
+
+cards = [
+  "Feeling overwhelmed.#Can you help?",
+  "Struggling with social#anxiety, Need advice.",
+  "Quiz me on relaxation# techniques for stress relief.",
+  "Write a journal entry.#To express emotions.",
+  "Help me create a self-care# routine to prioritize well-being.",
+  "Feeling anxious.#Need coping strategies.",
+  "Dealing with stress#at work. Any tips?",
+  "Mindfulness exercises#to reduce anxiety.",
+  "Managing negative thoughts.#Advice?",
+  "Improving self-esteem.#Suggestions?",
+]
 
 def index(request):
   return render(request, 'index.html')
 
 def app(request):
-  return render(request, 'app.html')
+  cards_bold, cards_normal = card_choser()
+
+  context = {
+     'cards_bold': cards_bold,
+     'cards_normal': cards_normal,
+     'zipped': zip(cards_bold, cards_normal)
+  }
+
+  return render(request, 'app.html', context=context)
+
+def card_choser():
+  chosen = random.sample(cards, 4)
+
+  bold_texts = []
+  normal_texts = []
+
+  for card in chosen:
+    parts = card.split("#")
+    bold_texts.append(parts[0])
+    normal_texts.append(parts[1])
+
+  return bold_texts, normal_texts
 
 def ai(request):
   from portkey_ai import Portkey
