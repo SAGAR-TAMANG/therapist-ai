@@ -28,3 +28,16 @@ class ChatConsumerDemo(WebsocketConsumer):
     )
 
     self.send(text_data=user_message_html)
+
+    # render an empty text 
+
+    message_id = uuid.uuid4().hex
+    contents_div_id = f"message-response-{message_id}"
+    system_message_html = render_to_string(
+      "chat/ai_msg.html",
+      {
+        "contents_div_id": contents_div_id,
+      },
+    )
+
+    self.send(text_data=system_message_html)

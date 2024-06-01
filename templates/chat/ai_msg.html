@@ -1,0 +1,13 @@
+{% load static %}
+
+<div id="message-list" hx-swap-oob="beforeend">
+  <div class="py-4 px-3 border-bottom d-flex align-items-top">
+    <img src="{% static 'img/pi.jpg' %}" style="width: 30px; height: 30px;" class="me-3" alt="user-avatar">
+    <p class="text-secondary p-0 m-0 add-loading-dots" id="{{ contents_div_id }}">
+      <span class="fw-bold">
+        pi
+      </span>
+      <br>
+    </p>
+  </div>
+</div>
