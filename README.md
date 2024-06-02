@@ -11,7 +11,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/SAGAR-TAMANG/therapist-ai">
-    <img src="https://raw.githubusercontent.com/SAGAR-TAMANG/therapist-ai/main/static/img/pi.png" alt="Logo" height="50">
+    <img src="https://raw.githubusercontent.com/SAGAR-TAMANG/therapist-ai/main/static/img/favicon.png" alt="Logo" height="50">
   </a>
 
 <h3 align="center">AI Therapist</h3>
