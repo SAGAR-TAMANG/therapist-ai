@@ -13,6 +13,5 @@ from therapist.routing import websocket_urlpatterns
 
 application = ProtocolTypeRouter({
     "http": application,
-    "websocket": AllowedHostsOriginValidator(
-      AuthMiddlewareStack(URLRouter(websocket_urlpatterns)))
+    "websocket": AuthMiddlewareStack(URLRouter(websocket_urlpatterns))
 })
