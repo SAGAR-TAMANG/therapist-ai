@@ -12,6 +12,7 @@
 
 .hero {
   height: 100vh;
+  overflow: hidden;
 }
 
 .hero-video {
