@@ -3,12 +3,21 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class LoginForm(forms.Form):
-  username = forms.CharField(
-    widget=forms.TextInput(
+  # username = forms.CharField(
+  #   widget=forms.TextInput(
+  #     attrs={
+  #       'placeholder': 'Username',
+  #       'class': 'form-control mb-2',
+  #       'autocomplete': 'current-username',
+  #     }
+  #   )
+  # )
+  email = forms.EmailField(
+    widget=forms.EmailInput(
       attrs={
-        'placeholder': 'Username',
+        'placeholder': 'Email',
         'class': 'form-control mb-2',
-        'autocomplete': 'current-username',
+        'autocomplete': 'current-email',
       }
     )
   )
