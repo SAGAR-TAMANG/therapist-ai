@@ -2,19 +2,36 @@
 
 {% block title %}Register{% endblock %}
 
+{% block style %}
+
+<!-- <style>
+  main {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style> -->
+
+{% endblock %}
+
 {% block content %}
-<div class="row container mx-auto">
-  <div class="col-md-4 col-12 mx-auto">
-    {% if msg %}
-    <div class="alert alert-info" role="alert">
-      {{ msg|safe }}
+{% include 'includes/navbar.html' %}
+
+<main>
+  <div class="row container mx-auto">
+    <div class="col-md-4 col-12 mx-auto">
+      {% if msg %}
+      <div class="alert alert-info" role="alert">
+        {{ msg|safe }}
+      </div>
+      {% endif %}
+      <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-outline-primary w-100">Sign Up</button>
+      </form>
     </div>
-    {% endif %}
-    <form method="POST">
-      {% csrf_token %}
-      {{ form }}
-      <button type="submit" class="btn btn-outline-primary w-100">Sign Up</button>
-    </form>
   </div>
-</div>
+</main>
 {% endblock %}

@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'therapist',
-    'authentication',
+    'account',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -72,15 +73,23 @@ ASGI_APPLICATION = "main.asgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': os.getenv("DBUSER"),
-        'PASSWORD': os.getenv("DBPASSWORD"),
-        'HOST': 'monorail.proxy.rlwy.net',
-        'PORT': '57234',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': os.getenv("DBUSER"),
+#         'PASSWORD': os.getenv("DBPASSWORD"),
+#         'HOST': 'monorail.proxy.rlwy.net',
+#         'PORT': '57234',
+#     }
+# }
 
 
 # Password validation
@@ -129,3 +138,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AUTHENTICATION_BACKENDS = [
+#   'account.backends.EmailBackend',
+# ]
+
+# AUTH_USER_MODEL = 'account.CustomUser'
+
+RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')

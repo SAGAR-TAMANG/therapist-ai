@@ -11,12 +11,12 @@ def login_view(request):
     form = LoginForm(request.POST)
     if form.is_valid():
       print("############### FORM BEGINS ###############")
-      # username = form.cleaned_data.get("username")
-      email = form.cleaned_data.get("email")
+      username = form.cleaned_data.get("username")
+      # email = form.cleaned_data.get("email")
       password = form.cleaned_data.get("password")
-      print(email)
+      print(username)
       print(password)
-      user = authenticate(email=email, password=password)
+      user = authenticate(username=username, password=password)
       print(user)
       if user:
         msg='Success'

@@ -1,23 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django_recaptcha.fields import ReCaptchaField
+# from .models import CustomUser
 
 class LoginForm(forms.Form):
-  # username = forms.CharField(
-  #   widget=forms.TextInput(
-  #     attrs={
-  #       'placeholder': 'Username',
-  #       'class': 'form-control mb-2',
-  #       'autocomplete': 'current-username',
-  #     }
-  #   )
-  # )
-  email = forms.EmailField(
-    widget=forms.EmailInput(
+  username = forms.CharField(
+    widget=forms.TextInput(
       attrs={
-        'placeholder': 'Email',
+        'placeholder': 'Username',
         'class': 'form-control mb-2',
-        'autocomplete': 'current-email',
+        'autocomplete': 'current-username',
       }
     )
   )
@@ -30,12 +23,18 @@ class LoginForm(forms.Form):
       }
     )
   )
+  captcha = ReCaptchaField()
 
 class SignUpForm(UserCreationForm):
-  def __init__(self, *args, **kwargs):
-    super(SignUpForm, self).__init__(*args, **kwargs)
-    self.fields.pop('username')
-
+  username = forms.CharField(
+    widget=forms.TextInput(
+      attrs={
+        'placeholder': 'Username',
+        'class': 'form-control mb-2',
+        'autocomplete': 'new-username',
+      }
+    )
+  )
   email = forms.EmailField(
     label='Email',
     widget=forms.EmailInput(
@@ -66,7 +65,8 @@ class SignUpForm(UserCreationForm):
       }
     )
   )
+  captcha = ReCaptchaField()
 
   class Meta:
     model = User
-    fields = ('username', 'email', 'password1', 'password2')
+    fields = ('username', 'email', 'password1', 'password2', 'captcha')
