@@ -36,3 +36,7 @@
   transform: translate(-50%, -50%);
   margin: auto;
 }
+
+header {
+  z-index: 1000;
+}
