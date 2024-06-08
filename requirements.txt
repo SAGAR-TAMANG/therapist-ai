@@ -5,3 +5,4 @@ python-dotenv==1.0.1
 psycopg2==2.9.9
 daphne==4.1.2
 django-recaptcha==4.0.0
+google-api-python-client==2.132.0

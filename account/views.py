@@ -1,7 +1,15 @@
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .forms import LoginForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+
+from dotenv import load_dotenv
+import os
+
+from google.auth.transport import requests
+from google.oauth2 import id_token
 
 # Create your views here.
 def login_view(request):
@@ -57,3 +65,42 @@ def register_user(request):
 def logout_view(request):
   logout(request)
   return redirect('index')
+
+# Google OAuth
+
+@csrf_exempt
+def google_auth_receiver(request):
+    """
+    Google calls this URL after the user has signed in with their Google account.
+    """
+    token = request.POST.get('credential')
+
+    print("Inside the auth receiver")
+
+    if token:
+        try:
+            user_data = id_token.verify_oauth2_token(
+                token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
+            )
+            # Assuming user_data contains the user's information (e.g., email)
+            email = user_data.get('email')
+            if email:
+                # Try to authenticate the user
+                user = authenticate(request, email=email)
+                if user:
+                    # User exists, log in the user
+                    login(request, user)
+                    return redirect('index')
+                else:
+                    # User doesn't exist, create a new user
+                    user = User.objects.create_user(email=email)
+                    login(request, user)
+                    return HttpResponse("New user created and logged in.", status=200)
+            else:
+                # Email not found in user data, handle the error accordingly
+                return HttpResponse("Email not provided in user data", status=400)
+        except ValueError:
+            return HttpResponse("Invalid token", status=403)
+    else:
+        # Credential not provided in request, handle the error accordingly
+        return HttpResponse("Credential not provided", status=400)

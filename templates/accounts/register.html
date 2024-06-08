@@ -26,12 +26,34 @@
         {{ msg|safe }}
       </div>
       {% endif %}
-      <form method="POST">
+      <form method="POST" class="mb-2">
         {% csrf_token %}
         {{ form }}
         <button type="submit" class="btn btn-outline-primary w-100">Sign Up</button>
       </form>
+      <div id="g_id_onload"
+        data-client_id="1095555619610-2on3t0qha0oae0bcsdsvqg1ktt9sq6lv.apps.googleusercontent.com"
+        data-context="signup"
+        data-ux_mode="popup"
+        data-login_uri="https://localhost:8000/auth-receiver"
+        data-auto_select="true"
+        data-itp_support="false">
+      </div>
+      <div class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="filled_black"
+        data-text="continue_with"
+        data-size="large"
+        data-logo_alignment="left">
+      </div>
     </div>
   </div>
 </main>
+{% endblock %}
+
+{% block javascript %}
+
+<script src="https://accounts.google.com/gsi/client" async></script>
+
 {% endblock %}

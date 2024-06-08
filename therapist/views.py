@@ -16,6 +16,14 @@ cards = [
   "Improving self-esteem.#Suggestions?",
 ]
 
+# def pages(request):
+#   try:
+#     load_template = request.path.split('/')
+#     print("Load Template:", load_template)
+#     return HttpResponse(status=405)
+#   except:
+#     return HttpResponse(status=500)
+
 def index(request):
   return render(request, 'index.html')
 
@@ -88,3 +96,9 @@ def ai(request):
   print("Complete response:", response_text)
   
   return render(request, 'app.html')
+
+def handler500(request):
+  return render(request, 'handler500.html', status=500)
+
+def handler404(request, exception):
+  return render(request, 'handler404.html', status=404)
