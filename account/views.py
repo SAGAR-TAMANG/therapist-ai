@@ -101,12 +101,16 @@ def google_auth_receiver(request):
                     user.set_unusable_password()  # Since we're using Google OAuth, password isn't necessary
                     user.save()
                     login(request, user)
-                    return HttpResponse("New user created and logged in.", status=200)
+                    return redirect('index')
             else:
                 # Email not found in user data, handle the error accordingly
-                return HttpResponse("Email not provided in user data", status=400)
+                error_text = 'Email not provided in user data'
+                return render(request, 'accounts/error.html', context={'error': error_text}, status=400)
         except ValueError:
-            return HttpResponse("Invalid token", status=403)
+            # Invalid token
+            error_text = "Invalid token"
+            return render(request, 'accounts/error.html', context={'error': error_text}, status=403)
     else:
         # Credential not provided in request, handle the error accordingly
-        return HttpResponse("Credential not provided", status=400)
+        error_text = "Credential not provided"
+        return render(request, 'accounts/error.html', context={'error': error_text}, status=400)
