@@ -8,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
 from google.auth.transport import requests
 from google.oauth2 import id_token
 
