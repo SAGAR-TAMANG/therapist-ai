@@ -15,6 +15,12 @@
 
 {% block title %}Therapist AI | Feynman Pi{% endblock %}
 
+{% block style %}
+
+
+
+{% endblock %}
+
 {% block content %}
 
 {% include 'includes/navbar_abs.html' %}
@@ -22,17 +28,20 @@
 <main>
   <div class="hero">
     <video autoplay muted loop class="hero-video">
-      <source src="{% static 'img/hero-desktop.mp4' %}" type="video/mp4">
+      <source src="{% static 'img/hero-desktop-6.mp4' %}" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <section class="hero-content">
       <div class="text-center py-5 my-5">
-        <h1 class="display-2 my-5">Welcome to Your 
+        <h1 class="display-2 my-5">
+          <span class="text-outline text-white">
+            Welcome to Your
+          </span> 
           <br>
-          <span class="text-ai-2">
+          <span class="text-ai-2 text-white">
             AI Therapist
           </span></h1>
-        <p class="lead text-black">Your personal AI-powered mental health support, <br>available 24/7.</p>
+        <p class="lead text-white text-outline">Your personal AI-powered mental health support, <br>available 24/7.</p>
         <div>
           <a href="{% url 'app' %}">
             <button class="btn btn-primary me-2">Get Started</button>

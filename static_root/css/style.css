@@ -12,6 +12,7 @@
 
 .hero {
   height: 100vh;
+  overflow: hidden;
 }
 
 .hero-video {
@@ -34,4 +35,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   margin: auto;
+}
+
+header {
+  z-index: 1000;
 }
