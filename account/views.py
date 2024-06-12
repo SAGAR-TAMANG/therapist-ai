@@ -86,6 +86,7 @@ def google_auth_receiver(request):
             )
             # Assuming user_data contains the user's information (e.g., email)
             email = user_data.get('email')
+            full_name = user_data.get('name')
             if email:
                 # Try to authenticate the user
                 user = authenticate(request, email=email)
@@ -95,7 +96,10 @@ def google_auth_receiver(request):
                     return redirect('index')
                 else:
                     # User doesn't exist, create a new user
-                    user = User.objects.create_user(email=email)
+                    username = email.split('@')[0] if not full_name else full_name.replace(" ", "_")
+                    user = User.objects.create_user(username=username, email=email)
+                    user.set_unusable_password()  # Since we're using Google OAuth, password isn't necessary
+                    user.save()
                     login(request, user)
                     return HttpResponse("New user created and logged in.", status=200)
             else:
