@@ -23,7 +23,7 @@ class LoginForm(forms.Form):
       }
     )
   )
-  # captcha = ReCaptchaField()
+  captcha = ReCaptchaField()
 
 class SignUpForm(UserCreationForm):
   username = forms.CharField(
@@ -65,9 +65,9 @@ class SignUpForm(UserCreationForm):
       }
     )
   )
-  # captcha = ReCaptchaField()
+  captcha = ReCaptchaField()
 
   class Meta:
     model = User
-    # fields = ('username', 'email', 'password1', 'password2', 'captcha')
-    fields = ('username', 'email', 'password1', 'password2')
+    fields = ('username', 'email', 'password1', 'password2', 'captcha')
+    # fields = ('username', 'email', 'password1', 'password2')
