@@ -72,24 +72,24 @@ ASGI_APPLICATION = "main.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
-    }
-}
-
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'USER': os.getenv("DBUSER"),
-#         'PASSWORD': os.getenv("DBPASSWORD"),
-#         'HOST': 'monorail.proxy.rlwy.net',
-#         'PORT': '57234',
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": "mydatabase",
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': os.getenv("DBUSER"),
+        'PASSWORD': os.getenv("DBPASSWORD"),
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '57234',
+    }
+}
 
 
 # Password validation
